@@ -11,6 +11,7 @@ import com.example.aidlservice.IaidlSun;
 
 
 public class MyService extends Service {
+    private Intent intent;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -30,6 +31,13 @@ public class MyService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
+        this.intent = intent;
         return stub;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        stopService(intent);
     }
 }
